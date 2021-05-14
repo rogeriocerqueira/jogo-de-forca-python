@@ -80,7 +80,9 @@ def verifica_jogo(acertos, erros, palavra):
 
 
 def inicia_jogo():
+    print(HANGMANPICS[0]) #Mostra a forca logo de início
     palavra, tracos = esconde_palavra()
+    print(''.join(tracos)) #Mostra logo no início os traços
     acertos, erros = 0, 0
 
     while (erros != len(HANGMANPICS)):
@@ -113,6 +115,3 @@ def main():
 if __name__ == '__main__':
     inicia_jogo()
 
-#Coisas que faltam segundo @Cussa me indicou na mentoria
-# 1 - Verificar se o usário não digitou a letra e esta digitando novamente a mesma letra
-# 2 - Verificar se o usuário digitou um caracter inválido ou algo desse tipo.
