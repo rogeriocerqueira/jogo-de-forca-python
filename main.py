@@ -71,10 +71,10 @@ def esconde_palavra():
 
 
 def verifica_jogo(acertos, erros, palavra):
-    if acertos >= len(palavra)-1:
+    if acertos >= len(palavra) and erros != len(HANGMANPICS)-1:
         print('Parabens! Você ganhou o jogo')
 
-    elif erros == len(HANGMANPICS)-1:
+    else:
         print('Game Over!')
         print('A palavra era: %s ' %(palavra))
 
