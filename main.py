@@ -65,13 +65,13 @@ def escolhe_palavra():
 def esconde_palavra():
     palavra = escolhe_palavra()
     tracos = []
-    for caracter in palavra:
+    for _ in palavra:
         tracos.append('_')
     return palavra, tracos
 
 
 def verifica_jogo(acertos, erros, palavra):
-    if acertos >= len(palavra) and erros != len(HANGMANPICS)-1:
+    if acertos >= len(palavra) and erros != len(HANGMANPICS)-1: #Mudanças mais significativas feitas aqui, relativa ao Issue 07
         print('Parabens! Você ganhou o jogo')
 
     else:
@@ -98,7 +98,7 @@ def inicia_jogo():
             print(HANGMANPICS[erros+1]) #Imprime a posição seguinte da lista e não a primeira
             erros +=1
 
-        if acertos >= len(palavra) - 1: #Excluindo o caracter "\n" presente no final da string do arquivo
+        if acertos >= len(palavra)
             break
 
         #print(palavra) #só pra conferir se to fazendo certo
@@ -107,12 +107,5 @@ def inicia_jogo():
         print(''.join(tracos[:-1]))
     verifica_jogo(acertos, erros, palavra)
 
-def main():
-    inicia_jogo()
-
 if __name__ == '__main__':
     inicia_jogo()
-
-#Coisas que faltam segundo @Cussa me indicou na mentoria
-# 1 - Verificar se o usário não digitou a letra e esta digitando novamente a mesma letra
-# 2 - Verificar se o usuário digitou um caracter inválido ou algo desse tipo.
