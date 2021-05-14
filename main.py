@@ -83,7 +83,7 @@ def inicia_jogo():
     palavra, tracos = esconde_palavra()
     acertos, erros = 0, 0
 
-    while (erros != len(HANGMANPICS)):
+    while (erros != len(HANGMANPICS)-1) and acertos < len(palavra):
         i = 0
         escolha = input('Digite uma letra: ').upper()
 
@@ -97,12 +97,6 @@ def inicia_jogo():
         else:
             print(HANGMANPICS[erros+1]) #Imprime a posição seguinte da lista e não a primeira
             erros +=1
-
-        if acertos >= len(palavra) - 1: #Excluindo o caracter "\n" presente no final da string do arquivo
-            break
-
-        #print(palavra) #só pra conferir se to fazendo certo
-        # print(acertos, len(palavra)-1)
 
         print(''.join(tracos[:-1]))
     verifica_jogo(acertos, erros, palavra)
