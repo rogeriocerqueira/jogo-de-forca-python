@@ -65,7 +65,7 @@ def escolhe_palavra():
 def esconde_palavra():
     palavra = escolhe_palavra()
     tracos = []
-    for caracter in palavra:
+    for _ in palavra: #Não salvando a variavel na memória 
         tracos.append('_')
     return palavra, tracos
 
@@ -80,6 +80,7 @@ def verifica_jogo(acertos, erros, palavra):
 
 
 def inicia_jogo():
+    print(HANGMANPICS[0]) #Mostra a forca logo de inicio
     palavra, tracos = esconde_palavra()
     acertos, erros = 0, 0
 
@@ -88,21 +89,19 @@ def inicia_jogo():
         escolha = input('Digite uma letra: ').upper()
 
         if escolha in palavra:
-            for caracter in palavra:
+            for _ in palavra: #Para não guardar a variável na memória
                 if escolha in palavra[i]:
-                    tracos[i] = caracter
+                    tracos[i] = _
                     acertos += 1
                 i+=1
 
         else:
-            print(HANGMANPICS[erros+1]) #Imprime a posição seguinte da lista e não a primeira
+            print(HANGMANPICS[erros+1]) #Imprime a posição seguinte da lista e não a primeira cabeça, tronco, bracos e seguintes
             erros +=1
 
         if acertos >= len(palavra) - 1: #Excluindo o caracter "\n" presente no final da string do arquivo
             break
 
-        #print(palavra) #só pra conferir se to fazendo certo
-        # print(acertos, len(palavra)-1)
 
         print(''.join(tracos[:-1]))
     verifica_jogo(acertos, erros, palavra)
