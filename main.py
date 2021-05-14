@@ -53,14 +53,9 @@ HANGMANPICS = ['''
 
 def escolhe_palavra():
     with open('palavras') as arquivo:
-        
-        linha_aleatoria = random.randrange(1,sum(1 for _ in arquivo)) # Seleciona uma linha aleartória do arquivo
-
-        #Busca palavra específica
-        arquivo = open('palavras', 'r')
-        palavra = (arquivo.readlines()[linha_aleatoria])
-        arquivo.close
-        return palavra
+            linhas = arquivo.readlines()
+            sorteia = random.randrange(1, len(linhas)) #sorteia uma palavra entre 1 e 13585 palavras
+            return linhas[sorteia]
 
 def esconde_palavra():
     palavra = escolhe_palavra()
