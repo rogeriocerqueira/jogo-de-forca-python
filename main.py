@@ -53,8 +53,8 @@ HANGMANPICS = ['''
 
 def escolhe_palavra():
     with open('palavras') as arquivo:
-        total_linhas = sum(1 for _ in arquivo) #soma o total de linhas do arquivo
-        linha_aleatoria = random.randrange(1, total_linhas) # Seleciona uma linha aleartória do arquivo
+        
+        linha_aleatoria = random.randrange(1,sum(1 for _ in arquivo)) # Seleciona uma linha aleartória do arquivo
 
         #Busca palavra específica
         arquivo = open('palavras', 'r')
@@ -74,7 +74,7 @@ def verifica_jogo(acertos, erros, palavra):
     if acertos >= len(palavra)-1:
         print('Parabens! Você ganhou o jogo')
 
-    elif erros == 7:
+    elif erros == len(HANGMANPICS)-1:
         print('Game Over!')
         print('A palavra era: %s ' %(palavra))
 
@@ -95,7 +95,7 @@ def inicia_jogo():
                 i+=1
 
         else:
-            print(HANGMANPICS[erros])
+            print(HANGMANPICS[erros+1]) #Imprime a posição seguinte da lista e não a primeira
             erros +=1
 
         if acertos >= len(palavra) - 1: #Excluindo o caracter "\n" presente no final da string do arquivo
@@ -105,7 +105,6 @@ def inicia_jogo():
         # print(acertos, len(palavra)-1)
 
         print(''.join(tracos[:-1]))
-        print(erros)
     verifica_jogo(acertos, erros, palavra)
 
 def main():
