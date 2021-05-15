@@ -54,8 +54,7 @@ HANGMANPICS = ['''
 def escolhe_palavra():
     with open('palavras') as arquivo:
             linhas = arquivo.readlines()
-            sorteia = random.randrange(1, len(linhas))
-            linhas = linhas[sorteia]
+            linhas = linhas[random.randrange(1, len(linhas))]
             return linhas[:-1]
 
 def esconde_palavra():
