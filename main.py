@@ -54,8 +54,7 @@ HANGMANPICS = ['''
 def escolhe_palavra():
         with open('palavras') as arquivo:
             linhas = arquivo.readlines()
-            sorteia = random.randrange(1, len(linhas))
-            linhas = linhas[sorteia]
+            linhas = linhas[random.randrange(1, len(linhas))]
             return linhas[:-1]
 
 def esconde_palavra():
@@ -76,8 +75,8 @@ def verifica_jogo(acertos, erros, palavra):
 
 def analisa_letra(escolha, lista): # Guarda as letras escolhidas pelo usuario em uma lista de valores
 
-    for caracter in lista:
-        if escolha == caracter:
+    for _ in lista:
+        if escolha == _:
             return True, lista
 
     lista.append(escolha)
@@ -103,14 +102,15 @@ def inicia_jogo():
                 i+=1
 
         else:
-            print(HANGMANPICS[erros+1]) #Proximo elemento da lista
-            erros +=1
+            erros +=1 #Penaliza os erros 
 
+        print(HANGMANPICS[erros]) #Proximo elemento da lista
         print(''.join(tracos))
-        print(acertos, (len(palavra)))
-
+        
     verifica_jogo(acertos, erros, palavra)
 
 if __name__ == '__main__':
+  resp = 'S'
+  while resp == 'S':
     inicia_jogo()
-    # escolhe_palavra()
+    resp = input('Deseja continuar?').upper()
