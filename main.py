@@ -80,11 +80,12 @@ def verifica_jogo(acertos, erros, palavra):
 
 
 def inicia_jogo():
-    print(HANGMANPICS[0]) #Mostra a forca logo de inicio
     palavra, tracos = esconde_palavra()
     acertos, erros = 0, 0
 
     while (erros != len(HANGMANPICS)):
+        print(HANGMANPICS[erros]) 
+        print(''.join(tracos[:-1]))
         i = 0
         escolha = input('Digite uma letra: ').upper()
 
@@ -96,14 +97,7 @@ def inicia_jogo():
                 i+=1
 
         else:
-            print(HANGMANPICS[erros+1]) #Imprime a posição seguinte da lista e não a primeira cabeça, tronco, bracos e seguintes
             erros +=1
-
-        if acertos >= len(palavra) - 1: #Excluindo o caracter "\n" presente no final da string do arquivo
-            break
-
-
-        print(''.join(tracos[:-1]))
     verifica_jogo(acertos, erros, palavra)
 
 def main():
