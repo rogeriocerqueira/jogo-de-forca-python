@@ -85,6 +85,7 @@ def analisa_letra(escolha, lista): # Guarda as letras escolhidas pelo usuario em
 
 def inicia_jogo():
     palavra, tracos = esconde_palavra()
+    print(''.join(tracos)) #Mostra logo no início os traços
     acertos, erros = 0, 0
     lista = ['*']  # Aqui eu inicializei a lista com um valor qualquer só pra não ocorrer erro
 
@@ -110,3 +111,4 @@ if __name__ == '__main__':
   while resp == 'S':
     inicia_jogo()
     resp = input('Deseja continuar?').upper()
+
