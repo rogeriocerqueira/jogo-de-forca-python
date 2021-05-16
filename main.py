@@ -52,23 +52,17 @@ HANGMANPICS = ['''
 =========''']
 
 def escolhe_palavra():
-    with open('palavras') as arquivo:
-        
-        linha_aleatoria = random.randrange(1,sum(1 for _ in arquivo)) # Seleciona uma linha aleartória do arquivo
-
-        #Busca palavra específica
-        arquivo = open('palavras', 'r')
-        palavra = (arquivo.readlines()[linha_aleatoria])
-        arquivo.close
-        return palavra
+        with open('palavras') as arquivo:
+            linhas = arquivo.readlines()
+            linhas = linhas[random.randrange(1, len(linhas))]
+            return linhas[:-1]
 
 def esconde_palavra():
     palavra = escolhe_palavra()
     tracos = []
-    for caracter in palavra:
+    for _ in palavra:
         tracos.append('_')
     return palavra, tracos
-
 
 def verifica_jogo(acertos, erros, palavra):
     if acertos >= len(palavra) and erros != len(HANGMANPICS)-1:
@@ -79,39 +73,42 @@ def verifica_jogo(acertos, erros, palavra):
         print('A palavra era: %s ' %(palavra))
 
 
+def analisa_letra(escolha, lista): # Guarda as letras escolhidas pelo usuario em uma lista de valores
+
+    for _ in lista:
+        if escolha == _:
+            return True, lista
+
+    lista.append(escolha)
+    return False, lista
+
+
 def inicia_jogo():
-    print(HANGMANPICS[0]) #Mostra a forca logo de início
     palavra, tracos = esconde_palavra()
     print(''.join(tracos)) #Mostra logo no início os traços
     acertos, erros = 0, 0
+    lista = ['*']  # Aqui eu inicializei a lista com um valor qualquer só pra não ocorrer erro
 
-    while (erros != len(HANGMANPICS)):
+    while (erros != len(HANGMANPICS)-1) and acertos < len(palavra):
+      print(HANGMANPICS[erros]) #Proximo elemento da lista
+      print(''.join(tracos))
         i = 0
         escolha = input('Digite uma letra: ').upper()
 
         if escolha in palavra:
-            for caracter in palavra:
+            for _ in palavra:
                 if escolha in palavra[i]:
-                    tracos[i] = caracter
+                    tracos[i] = _
                     acertos += 1
                 i+=1
 
         else:
-            print(HANGMANPICS[erros+1]) #Imprime a posição seguinte da lista e não a primeira
-            erros +=1
-
-        if acertos >= len(palavra) - 1: #Excluindo o caracter "\n" presente no final da string do arquivo
-            break
-
-        #print(palavra) #só pra conferir se to fazendo certo
-        # print(acertos, len(palavra)-1)
-
-        print(''.join(tracos[:-1]))
+            erros +=1 #Penaliza os erros         
     verifica_jogo(acertos, erros, palavra)
 
-def main():
-    inicia_jogo()
-
 if __name__ == '__main__':
+  resp = 'S'
+  while resp == 'S':
     inicia_jogo()
+    resp = input('Deseja continuar?').upper()
 
