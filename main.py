@@ -65,7 +65,7 @@ def esconde_palavra():
     return palavra, tracos
 
 def verifica_jogo(acertos, erros, palavra):
-    if acertos >= len(palavra) and erros != len(HANGMANPICS)-1:
+    if acertos >= len(palavra) and erros != len(HANGMANPICS)-1: #Mudanças mais significativas feitas aqui, relativa ao Issue 07
         print('Parabens! Você ganhou o jogo')
 
     else:
@@ -90,8 +90,8 @@ def inicia_jogo():
     lista = ['*']  # Aqui eu inicializei a lista com um valor qualquer só pra não ocorrer erro
 
     while (erros != len(HANGMANPICS)-1) and acertos < len(palavra):
-      print(HANGMANPICS[erros]) #Proximo elemento da lista
-      print(''.join(tracos))
+        print(HANGMANPICS[erros]) #Proximo elemento da lista
+        print(''.join(tracos))
         i = 0
         escolha = input('Digite uma letra: ').upper()
 
@@ -111,4 +111,5 @@ if __name__ == '__main__':
   while resp == 'S':
     inicia_jogo()
     resp = input('Deseja continuar?').upper()
+
 
