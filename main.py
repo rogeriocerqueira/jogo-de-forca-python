@@ -52,61 +52,59 @@ HANGMANPICS = ['''
 =========''']
 
 def escolhe_palavra():
-    with open('palavras') as arquivo:
-        
-        linha_aleatoria = random.randrange(1,sum(1 for _ in arquivo)) # Seleciona uma linha aleartória do arquivo
-
-        #Busca palavra específica
-        arquivo = open('palavras', 'r')
-        palavra = (arquivo.readlines()[linha_aleatoria])
-        arquivo.close
-        return palavra
+   linhas = arquivo.readlines()
+   linhas = linhas[random.randrange(1, len(linhas))]
+   return linhas[:-1]
 
 def esconde_palavra():
     palavra = escolhe_palavra()
     tracos = []
-    for caracter in palavra:
+
+    for _ in palavra:
         tracos.append('_')
     return palavra, tracos
 
-
 def verifica_jogo(acertos, erros, palavra):
-    if acertos >= len(palavra)-1:
+    if acertos >= len(palavra) and erros != len(HANGMANPICS)-1:
         print('Parabens! Você ganhou o jogo')
-
-    elif erros == len(HANGMANPICS)-1:
+    else:
         print('Game Over!')
         print('A palavra era: %s ' %(palavra))
+
+
+def analisa_letra(escolha, lista): # Guarda as letras escolhidas pelo usuario em uma lista de valores
+
+    for _ in lista:
+        if escolha == _:
+            return True, lista
+
+    lista.append(escolha)
+    return False, lista
 
 
 def inicia_jogo():
     palavra, tracos = esconde_palavra()
     acertos, erros = 0, 0
-
     while (erros != len(HANGMANPICS)-1) and acertos < len(palavra):
+        print(HANGMANPICS[erros]) #Proximo elemento da lista
+        print(''.join(tracos))
         i = 0
         escolha = input('Digite uma letra: ').upper()
-
+        
         if escolha in palavra:
-            for caracter in palavra:
+            for _ in palavra: #Para não guardar a variável na memória
+
                 if escolha in palavra[i]:
-                    tracos[i] = caracter
+                    tracos[i] = _
                     acertos += 1
                 i+=1
 
         else:
-            print(HANGMANPICS[erros+1]) #Imprime a posição seguinte da lista e não a primeira
             erros +=1
-
-        print(''.join(tracos[:-1]))
     verifica_jogo(acertos, erros, palavra)
 
-def main():
-    inicia_jogo()
-
 if __name__ == '__main__':
+  resp = 'S'
+  while resp == 'S':
     inicia_jogo()
-
-#Coisas que faltam segundo @Cussa me indicou na mentoria
-# 1 - Verificar se o usário não digitou a letra e esta digitando novamente a mesma letra
-# 2 - Verificar se o usuário digitou um caracter inválido ou algo desse tipo.
+    resp = input('Deseja continuar?').upper()
