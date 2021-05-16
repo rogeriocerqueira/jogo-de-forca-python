@@ -52,10 +52,9 @@ HANGMANPICS = ['''
 =========''']
 
 def escolhe_palavra():
-        with open('palavras') as arquivo:
-            linhas = arquivo.readlines()
-            linhas = linhas[random.randrange(1, len(linhas))]
-            return linhas[:-1]
+   linhas = arquivo.readlines()
+   linhas = linhas[random.randrange(1, len(linhas))]
+   return linhas[:-1]
 
 def esconde_palavra():
     palavra = escolhe_palavra()
@@ -66,9 +65,8 @@ def esconde_palavra():
     return palavra, tracos
 
 def verifica_jogo(acertos, erros, palavra):
-    if acertos >= len(palavra) and erros != len(HANGMANPICS)-1: #Mudanças mais significativas feitas aqui, relativa ao Issue 07
+    if acertos >= len(palavra) and erros != len(HANGMANPICS)-1:
         print('Parabens! Você ganhou o jogo')
-
     else:
         print('Game Over!')
         print('A palavra era: %s ' %(palavra))
@@ -105,7 +103,6 @@ def inicia_jogo():
 
         else:
             erros +=1
-
     verifica_jogo(acertos, erros, palavra)
 
 if __name__ == '__main__':
@@ -113,5 +110,3 @@ if __name__ == '__main__':
   while resp == 'S':
     inicia_jogo()
     resp = input('Deseja continuar?').upper()
-
-
