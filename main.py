@@ -85,9 +85,9 @@ def analisa_letra(escolha, lista): # Guarda as letras escolhidas pelo usuario em
 def inicia_jogo():
     palavra, tracos = esconde_palavra()
     acertos, erros = 0, 0
+    print(HANGMANPICS[0]) #imprime logo de inicio
     while (erros != len(HANGMANPICS)-1) and acertos < len(palavra):
-        print(HANGMANPICS[erros]) #Proximo elemento da lista
-        print(''.join(tracos))
+        
         i = 0
         escolha = input('Digite uma letra: ').upper()
         
@@ -101,6 +101,10 @@ def inicia_jogo():
 
         else:
             erros +=1
+            
+       print(HANGMANPICS[erros])
+       print(''.join(tracos))
+        
     verifica_jogo(acertos, erros, palavra)
 
 if __name__ == '__main__':
