@@ -86,6 +86,7 @@ def inicia_jogo():
     palavra, tracos = esconde_palavra()
     acertos, erros = 0, 0
     print(HANGMANPICS[0]) #imprime logo de inicio
+    print(''.join(tracos))
     while (erros != len(HANGMANPICS)-1) and acertos < len(palavra):
         
         i = 0
