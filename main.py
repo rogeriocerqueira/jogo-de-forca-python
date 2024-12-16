@@ -88,6 +88,15 @@ def inicia_jogo():
 
         letras_escolhidas.append(escolha)
 
+def inicia_jogo():
+    palavra, tracos = esconde_palavra()
+    acertos, erros = 0, 0
+    print(HANGMANPICS[0])  # Imprime logo de início
+    print(' '.join(tracos))  # Adicionado espaço entre os traços para melhor visualização
+
+    while erros < len(HANGMANPICS) - 1 and acertos < len(palavra):
+        escolha = input('Digite uma letra: ').upper()
+
         if escolha in palavra:
             for i, letra in enumerate(palavra):
                 if escolha == letra:
@@ -99,8 +108,3 @@ def inicia_jogo():
         print(HANGMANPICS[erros])
         print(' '.join(tracos))
 
-    verifica_jogo(acertos, erros, palavra)
-
-if __name__ == '__main__':
-    while input('Deseja jogar? (S/N): ').upper() == 'S':
-        inicia_jogo()
