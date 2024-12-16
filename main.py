@@ -52,64 +52,59 @@ HANGMANPICS = ['''
 =========''']
 
 def escolhe_palavra():
-   linhas = arquivo.readlines()
-   linhas = linhas[random.randrange(1, len(linhas))]
-   return linhas[:-1]
+    with open('palavras.txt', 'r') as arquivo:
+        linhas = arquivo.readlines()
+    return random.choice(linhas).strip().upper()
 
 def esconde_palavra():
     palavra = escolhe_palavra()
-    tracos = []
-
-    for _ in palavra:
-        tracos.append('_')
+    tracos = ['_' for _ in palavra]
     return palavra, tracos
 
 def verifica_jogo(acertos, erros, palavra):
-    if acertos >= len(palavra) and erros != len(HANGMANPICS)-1:
-        print('Parabens! Você ganhou o jogo')
+    if acertos >= len(palavra):
+        print('Parabéns! Você ganhou o jogo')
     else:
         print('Game Over!')
-        print('A palavra era: %s ' %(palavra))
-
-
-def analisa_letra(escolha, lista): # Guarda as letras escolhidas pelo usuario em uma lista de valores
-
-    for _ in lista:
-        if escolha == _:
-            return True, lista
-
-    lista.append(escolha)
-    return False, lista
-
+        print(f'A palavra era: {palavra}')
 
 def inicia_jogo():
     palavra, tracos = esconde_palavra()
     acertos, erros = 0, 0
-    print(HANGMANPICS[0]) #imprime logo de inicio
-    print(''.join(tracos))
-    while (erros != len(HANGMANPICS)-1) and acertos < len(palavra):
-        
-        i = 0
+    letras_escolhidas = []
+    print(HANGMANPICS[0])
+    print(' '.join(tracos))
+
+    while erros < len(HANGMANPICS) - 1 and acertos < len(palavra):
+        while True:
+            escolha = input('Digite uma letra: ').upper()
+            if len(escolha) == 1 and escolha.isalpha():
+                break
+            print("Entrada inválida. Digite apenas uma letra.")
+
+        if escolha in letras_escolhidas:
+            print("Você já escolheu essa letra. Tente outra.")
+            continue
+
+        letras_escolhidas.append(escolha)
+
+def inicia_jogo():
+    palavra, tracos = esconde_palavra()
+    acertos, erros = 0, 0
+    print(HANGMANPICS[0])  # Imprime logo de início
+    print(' '.join(tracos))  # Adicionado espaço entre os traços para melhor visualização
+
+    while erros < len(HANGMANPICS) - 1 and acertos < len(palavra):
         escolha = input('Digite uma letra: ').upper()
-        
+
         if escolha in palavra:
-            for _ in palavra: #Para não guardar a variável na memória
-
-                if escolha in palavra[i]:
-                    tracos[i] = _
+            for i, letra in enumerate(palavra):
+                if escolha == letra:
+                    tracos[i] = letra
                     acertos += 1
-                i+=1
-
         else:
-            erros +=1
-            
-       print(HANGMANPICS[erros])
-       print(''.join(tracos))
-        
-    verifica_jogo(acertos, erros, palavra)
+            erros += 1
 
-if __name__ == '__main__':
-  resp = 'S'
-  while resp == 'S':
-    inicia_jogo()
-    resp = input('Deseja continuar?').upper()
+        print(HANGMANPICS[erros])
+        print(' '.join(tracos))
+
